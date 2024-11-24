@@ -23,7 +23,7 @@ public class Compression {
     }
 
     public String compress(String str) {
-        String input = str;
+        String input = str.replace("\r\n", "\n");
         PriorityQueue<HuffmanNode> pq = new PriorityQueue<>((a, b) -> Double.compare(a.probability, b.probability));
         HashMap<Character, Integer> freq = new HashMap<>();
 
@@ -63,7 +63,13 @@ public class Compression {
 
         // Add the Huffman codes (can be printed or stored)
         for (Map.Entry<Character, String> entry : result.entrySet()) {
-            compressedCode += entry.getKey() + ": " + entry.getValue() + "\n";
+            char key = entry.getKey();
+            String value = entry.getValue();
+            if (key == '\n') {
+                compressedCode += "\\n: " + value + "\n";
+            } else {
+                compressedCode += key + ": " + value + "\n";
+            }
         }
         return compressedCode;
     }
