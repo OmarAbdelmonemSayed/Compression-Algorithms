@@ -61,7 +61,7 @@ public class Compression {
 
         compressedCode += "\n\n";
 
-        // Add the Huffman codes (can be printed or stored)
+        // Add the Huffman codes
         for (Map.Entry<Character, String> entry : result.entrySet()) {
             char key = entry.getKey();
             String value = entry.getValue();
@@ -71,6 +71,11 @@ public class Compression {
                 compressedCode += key + ": " + value + "\n";
             }
         }
+
+        if (!compressedCode.isEmpty() && compressedCode.charAt(compressedCode.length() - 1) == '\n') {
+            compressedCode = compressedCode.substring(0, compressedCode.length() - 1);
+        }
+        
         return compressedCode;
     }
 }
